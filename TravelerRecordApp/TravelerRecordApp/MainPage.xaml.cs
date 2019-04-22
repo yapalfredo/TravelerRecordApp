@@ -13,5 +13,12 @@ namespace TravelerRecordApp
         {
             InitializeComponent();
         }
+
+        private void ButtonLogin_Clicked(object sender, EventArgs e)
+        {
+           bool isEmailEmpty = string.IsNullOrEmpty(entryEmail.Text);
+           bool isPasswordEmtpy = string.IsNullOrEmpty(entryPassword.Text);
+
+        }
     }
 }
