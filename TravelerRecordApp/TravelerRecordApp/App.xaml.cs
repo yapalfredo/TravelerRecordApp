@@ -11,7 +11,8 @@ namespace TravelerRecordApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            //creating a navigation and setting the root page
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()

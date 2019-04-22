@@ -19,6 +19,15 @@ namespace TravelerRecordApp
            bool isEmailEmpty = string.IsNullOrEmpty(entryEmail.Text);
            bool isPasswordEmtpy = string.IsNullOrEmpty(entryPassword.Text);
 
+            if (isEmailEmpty || isPasswordEmtpy)
+            {
+
+            }
+            else
+            {
+                Navigation.PushAsync(new HomePage());
+            }
+
         }
     }
 }
