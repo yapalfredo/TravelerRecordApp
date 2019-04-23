@@ -25,6 +25,11 @@ namespace TravelerRecordApp.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
+            //--- This line is used for initializing the MAPS 
+            Xamarin.FormsMaps.Init();
+            //-----------------------------------------------
+
+
             //these 3 lines will be used for loading sqlite-----
             string dbName = "travel_db.sqlite";
             string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");

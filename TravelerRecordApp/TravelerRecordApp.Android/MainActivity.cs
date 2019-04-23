@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using System.IO;
+using Plugin.Permissions;
 
 namespace TravelerRecordApp.Droid
 {
@@ -20,6 +21,13 @@ namespace TravelerRecordApp.Droid
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            
+            //--- This line is used for initializing the MAPS 
+            Xamarin.FormsMaps.Init(this, savedInstanceState);
+            //------------------------------------------------
+
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
+
 
             //these 3 lines will be used for loading sqlite-----
             string dbName = "travel_db.sqlite";
@@ -28,6 +36,17 @@ namespace TravelerRecordApp.Droid
             //---------------------------------------------------
 
             LoadApplication(new App(fullpath));
+        }
+
+
+        //This is only done in Android
+        //Not require for iOS
+        //This will make sure that it will ask user
+        //to give permission for the maps
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
