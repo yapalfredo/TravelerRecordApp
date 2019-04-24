@@ -12,6 +12,10 @@ namespace TravelerRecordApp
         public MainPage()
         {
             InitializeComponent();
+
+            var assembly = typeof(MainPage);
+            imageLogo.Source = ImageSource.FromResource("TravelerRecordApp.Assets.Images.plane.png", assembly);
+
         }
 
         private void ButtonLogin_Clicked(object sender, EventArgs e)
