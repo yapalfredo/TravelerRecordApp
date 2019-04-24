@@ -2,12 +2,13 @@
 using Plugin.Geolocator.Abstractions;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TravelerRecordApp.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -69,18 +70,48 @@ namespace TravelerRecordApp
             }
 
             GetLocation();
+
+            using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
+            {
+                conn.CreateTable<Post>();
+                var posts = conn.Table<Post>().ToList();
+                DisplayInMap(posts);
+            }
+        }
+
+        private void DisplayInMap(List<Post> posts)
+        {
+            foreach(var post in posts)
+            {
+                try
+                {
+                    var position = new Xamarin.Forms.Maps.Position(post.Latitude, post.Longitude);
+
+                    var pin = new Xamarin.Forms.Maps.Pin()
+                    {
+                        Type = Xamarin.Forms.Maps.PinType.SavedPin,
+                        Position = position,
+                        Label = post.VenueName,
+                        Address = post.Address
+                    };
+
+                    mapLocation.Pins.Add(pin);
+                }
+                catch   (NullReferenceException nre) { }
+                catch (Exception ex) { }
+            }
         }
 
         //Unsubscribe to Locator_PositionChanged event
         //also StopsListeningAsync()
         //when this page is unloaded
         //good practice to save battery.
-        protected override void OnDisappearing()
+        protected override async void OnDisappearing()
         {
             base.OnDisappearing();
 
-            CrossGeolocator.Current.StopListeningAsync();
             CrossGeolocator.Current.PositionChanged -= Locator_PositionChanged;
+            await CrossGeolocator.Current.StopListeningAsync();
         }
 
         private void Locator_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
