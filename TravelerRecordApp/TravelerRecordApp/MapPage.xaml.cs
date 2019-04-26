@@ -71,12 +71,14 @@ namespace TravelerRecordApp
 
             GetLocation();
 
-            using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
+            /*using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
             {
                 conn.CreateTable<Post>();
                 var posts = conn.Table<Post>().ToList();
                 DisplayInMap(posts);
-            }
+            }*/
+            var posts = await App.MobileService.GetTable<Post>().Where(p => p.UserID == App.user.Id).ToListAsync();
+            DisplayInMap(posts);
         }
 
         private void DisplayInMap(List<Post> posts)

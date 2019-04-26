@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 
 using Foundation;
+using Microsoft.WindowsAzure.MobileServices;
 using UIKit;
 
 namespace TravelerRecordApp.iOS
@@ -28,6 +29,10 @@ namespace TravelerRecordApp.iOS
             //--- This line is used for initializing the MAPS 
             Xamarin.FormsMaps.Init();
             //-----------------------------------------------
+
+            //----- This will initialize Windows Azure Mobile Services
+            CurrentPlatform.Init();
+            //--------------------------------------------------------
 
 
             //these 3 lines will be used for loading sqlite-----

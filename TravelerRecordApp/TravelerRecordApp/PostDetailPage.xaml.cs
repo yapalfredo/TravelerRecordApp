@@ -22,18 +22,23 @@ namespace TravelerRecordApp
         //is passed through the constructor for this page
 		public PostDetailPage (Post selectedPost)
 		{
-			InitializeComponent ();
+			InitializeComponent();
 
             this.selectedPost = selectedPost;
             entryExperience.Text = selectedPost.Experience;
+            labelVenue.Text = selectedPost.VenueName;
+            labelCategory.Text = selectedPost.CategoryName;
+            labelAddress.Text = selectedPost.Address;
+            labelCoordinates.Text = $"{selectedPost.Latitude}, {selectedPost.Longitude}";
+            labelDistance.Text = $"{selectedPost.Distance} m";
 
 		}
 
-        private void ButtonUpdate_Clicked(object sender, EventArgs e)
+        private async void ButtonUpdate_Clicked(object sender, EventArgs e)
         {
             selectedPost.Experience = entryExperience.Text;
 
-            using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
+            /*using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
             {
                 conn.CreateTable<Post>();
                 int rows = conn.Update(selectedPost);
@@ -45,12 +50,15 @@ namespace TravelerRecordApp
                 {
                     DisplayAlert("Failure", "Experience failed to be updated", "Ok");
                 }
-            }
+            }*/
+
+            await App.MobileService.GetTable<Post>().UpdateAsync(selectedPost);
+            await DisplayAlert("Success", "Experience successfully updated", "Ok");
         }
 
-        private void ButtonDelete_Clicked(object sender, EventArgs e)
+        private async void ButtonDelete_Clicked(object sender, EventArgs e)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
+            /*using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
             {
                 conn.CreateTable<Post>();
                 int rows = conn.Delete(selectedPost);
@@ -62,7 +70,10 @@ namespace TravelerRecordApp
                 {
                     DisplayAlert("Failure", "Experience failed to be deleted", "Ok");
                 }
-            }
+            }*/
+
+            await App.MobileService.GetTable<Post>().DeleteAsync(selectedPost);
+            await DisplayAlert("Success", "Experience successfully deleted", "Ok");
         }
     }
 }

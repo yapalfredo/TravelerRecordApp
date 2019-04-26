@@ -21,20 +21,25 @@ namespace TravelerRecordApp
         //Executed everytime we navigate
         //to this page  (which is also the
         // requires connection database)
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
+            /*using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
             {
                 conn.CreateTable<Post>();
                 var posts = conn.Table<Post>().ToList();
                 listViewPost.ItemsSource = posts;
-            }
+            }*/
+
+            var posts = await App.MobileService.GetTable<Post>().Where(p => p.UserID == App.user.Id).ToListAsync();
+            listViewPost.ItemsSource = posts;
         }
 
         private void ListViewPost_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+
+            //casting using "as" because it's an object
             var selectedPost = listViewPost.SelectedItem as Post;
 
             //this will launch a content page

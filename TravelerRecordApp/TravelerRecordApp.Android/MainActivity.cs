@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using System.IO;
 using Plugin.Permissions;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace TravelerRecordApp.Droid
 {
@@ -21,6 +22,10 @@ namespace TravelerRecordApp.Droid
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            //----- This will initialize Windows Azure Mobile Services
+            CurrentPlatform.Init();
+            //--------------------------------------------------------
             
             //--- This line is used for initializing the MAPS 
             Xamarin.FormsMaps.Init(this, savedInstanceState);

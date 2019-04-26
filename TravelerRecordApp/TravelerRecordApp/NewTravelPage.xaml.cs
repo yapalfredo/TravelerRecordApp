@@ -32,7 +32,7 @@ namespace TravelerRecordApp
 
         }
 
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             try
             {
@@ -48,30 +48,35 @@ namespace TravelerRecordApp
                     Distance = selectedVenue.location.distance,
                     Latitude = selectedVenue.location.lat,
                     Longitude = selectedVenue.location.lng,
-                    VenueName = selectedVenue.name
+                    VenueName = selectedVenue.name,
+                    UserID = App.user.Id
                 };
 
-                using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
-                {
-                    conn.CreateTable<Post>();
-                    int rows = conn.Insert(post);
-                    if (rows > 0)
-                    {
-                        DisplayAlert("Success", "Experience successfully inserted", "Ok");
-                    }
-                    else
-                    {
-                        DisplayAlert("Failure", "Experience failed to be inserted", "Ok");
-                    }
-                }
+                /* using (SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation))
+                 {
+                     conn.CreateTable<Post>();
+                     int rows = conn.Insert(post);
+                     if (rows > 0)
+                     {
+                         DisplayAlert("Success", "Experience successfully inserted", "Ok");
+                     }
+                     else
+                     {
+                         DisplayAlert("Failure", "Experience failed to be inserted", "Ok");
+                     }
+                 }*/
+
+               await App.MobileService.GetTable<Post>().InsertAsync(post);
+               await DisplayAlert("Success", "Experience successfully inserted", "Ok");
+
             }
             catch (NullReferenceException nre)
             {
-              //  DisplayAlert("Error", nre.Message, "Ok");
+              await DisplayAlert("Failure", nre.Message, "Ok");
             }
             catch (Exception ex)
             {
-              //  DisplayAlert("Error", ex.Message, "Ok");
+              await DisplayAlert("Failure", ex.Message, "Ok");
             }
 
            
