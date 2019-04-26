@@ -6,17 +6,22 @@
         <StackLayout>
             <Entry x:Name="entryExperience" />
             <Label x:Name="labelVenue" 
-                   Margin="0,30,0,0"
+                   Margin="20,30,20,0"
                    FontAttributes="Bold"
-                   FontSize="22"/>
-            <Label x:Name="labelCategory "
-                   TextColor="{StaticResource blueColor}"/>
+                   FontSize="22"
+                   />
+            <Label x:Name="labelCategory"
+                   TextColor="{StaticResource blueColor}"
+                   Margin="20,0,20,0"/>
             <Label x:Name="labelAddress" 
-                   FontSize="15"/>
+                   FontSize="15"
+                   Margin="20,0,20,0"/>
             <Label x:Name="labelCoordinates"
-                   FontSize="15"/>
+                   FontSize="15"
+                   Margin="20,0,20,0"/>
             <Label x:Name="labelDistance"
-                   FontSize="15"/>
+                   FontSize="15"
+                   Margin="20,0,20,0"/>
 
             <Button Text="Update" x:Name="buttonUpdate"
                     Clicked="ButtonUpdate_Clicked"/>
