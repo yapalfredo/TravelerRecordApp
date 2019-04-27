@@ -77,7 +77,7 @@ namespace TravelerRecordApp
                 var posts = conn.Table<Post>().ToList();
                 DisplayInMap(posts);
             }*/
-            var posts = await App.MobileService.GetTable<Post>().Where(p => p.UserID == App.user.Id).ToListAsync();
+            var posts = await Post.Read();
             DisplayInMap(posts);
         }
 

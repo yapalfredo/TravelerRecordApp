@@ -3,12 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TravelerRecordApp.RegistrationPage">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center"
+        <StackLayout x:Name="stackLayoutContainer"
+            VerticalOptions="Center"
                  Margin="20">            
             <Entry x:Name="entryEmail" 
+                   Text="{Binding Email, Mode=TwoWay}"
                Placeholder="Email Address"
                Keyboard="Email"/>
             <Entry x:Name="entryPassword" 
+                   Text="{Binding Password, Mode=TwoWay}"
                Placeholder="Password"
                IsPassword="True"/>
             <Entry x:Name="entryConfirmPassword" 

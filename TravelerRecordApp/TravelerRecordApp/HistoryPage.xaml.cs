@@ -32,7 +32,8 @@ namespace TravelerRecordApp
                 listViewPost.ItemsSource = posts;
             }*/
 
-            var posts = await App.MobileService.GetTable<Post>().Where(p => p.UserID == App.user.Id).ToListAsync();
+            //var posts = await App.MobileService.GetTable<Post>().Where(p => p.UserID == App.user.Id).ToListAsync();
+            var posts = await Post.Read();
             listViewPost.ItemsSource = posts;
         }
 
