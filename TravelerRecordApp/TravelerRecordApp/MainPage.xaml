@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:TravelerRecordApp"
              x:Class="TravelerRecordApp.MainPage">
 
-    <StackLayout VerticalOptions="Center"
+    <StackLayout x:Name="stackLayoutContainer"
+        VerticalOptions="Center"
                  Margin="20">
         <Image x:Name="imageLogo"
                HeightRequest="150"
@@ -12,15 +13,18 @@
                HorizontalOptions="FillAndExpand"
                Margin="0,0,0,50"/>
         <Entry x:Name="entryEmail" 
+               Text="{Binding Email, Mode=TwoWay}"
                Placeholder="Email Address"
                Keyboard="Email"/>
-        <Entry x:Name="entryPassword" 
+        <Entry x:Name="entryPassword"
+               Text="{Binding Password, Mode=TwoWay}"
                Placeholder="Password"
                IsPassword="True"/>
         <Button x:Name="buttonLogin" 
                 Margin="0,50,0,0"
                 Text="Login"
-                Clicked="ButtonLogin_Clicked"
+                Command="{Binding LoginCommands}"
+                CommandParameter="{Binding User}"
                 Style="{StaticResource normalButton}"/>
         <Button x:Name="buttonRegister" 
                 Text="Register"
